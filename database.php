@@ -5,7 +5,7 @@ declare(strict_types=1);
 const DB_HOST = '127.0.0.1';
 const DB_NAME = 'php_user_system';
 const DB_USER = 'root';
-const DB_PASS = ''; //password
+const DB_PASS = '';//password
 
 function getPDO(): PDO
 {

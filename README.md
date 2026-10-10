@@ -2,6 +2,8 @@
 
 ## PHP User System — School Assignment
 
+---
+
 ## English
 
 ### What is this project?
@@ -20,6 +22,8 @@ The project lets a user:
 
 I kept the project small on purpose. I did not use a framework because the main point of the assignment is to show the PHP concepts directly.
 
+---
+
 ### How I thought about the project
 
 I started with the basic user journey:
@@ -35,6 +39,8 @@ I started with the basic user journey:
 9. Logout destroys the session.
 
 This made it easier to decide what each file should do.
+
+---
 
 ### What each file does
 
@@ -52,6 +58,8 @@ This made it easier to decide what each file should do.
 | `logs.txt` | Stores the email and date of each successful login. |
 | `style.css` | Contains the custom design and responsive layout. |
 
+---
+
 ### Why I used a `User` class
 
 I used a simple class because user actions belong together. The class has three main jobs:
@@ -61,6 +69,8 @@ I used a simple class because user actions belong together. The class has three 
 - `login()` finds the user and checks the password with `password_verify()`.
 
 The page files handle the form and the HTML, while the class handles the user database operations. It is still a simple structure, but it shows the OOP idea clearly.
+
+---
 
 ### Database and PDO
 
@@ -83,6 +93,8 @@ const DB_PASS = 'my_mysql_password';
 
 The phpMyAdmin password and the project password must match the MySQL password.
 
+---
+
 ### Small security improvements
 
 I added a few things beyond the basic form requirements:
@@ -98,6 +110,8 @@ I added a few things beyond the basic form requirements:
 
 The email cookie only remembers the email. It does not prove that the user is logged in. The session is what protects the dashboard.
 
+---
+
 ### How to run it with XAMPP
 
 1. Copy the `php-user-system` folder into `C:\xampp\htdocs`.
@@ -109,6 +123,8 @@ The email cookie only remembers the email. It does not prove that the user is lo
 7. Open `http://localhost/php-user-system/`.
 
 If `root` has a password, I use that password in both MySQL/phpMyAdmin and `database.php`. If the project cannot connect, the first things to check are that MySQL is running, the database was imported, and `DB_PASS` is correct.
+
+---
 
 ### What I tested
 
@@ -122,6 +138,8 @@ If `root` has a password, I use that password in both MySQL/phpMyAdmin and `data
 - Opening the dashboard without logging in.
 - Logging out and trying to open the dashboard again.
 - Checking the layout on a small screen.
+
+---
 
 ### What could be added later?
 
@@ -147,6 +165,8 @@ If I continued the project, I could add password reset, email verification, logi
 
 أنا خليت المشروع صغير عن قصد. ما استخدمتش Framework لأن الهدف الأساسي إن استخدام PHP وOOP وPDO والـSessions والـCookies والـFile Handling يكون واضح في الكود نفسه.
 
+---
+
 ### فكرت في المشروع إزاي؟
 
 بدأت من رحلة المستخدم العادية:
@@ -162,6 +182,8 @@ If I continued the project, I could add password reset, email verification, logi
 9. Logout يمسح الـSession.
 
 بالطريقة دي كان سهل أحدد وظيفة كل ملف.
+
+---
 
 ### كل ملف مسؤول عن إيه؟
 
@@ -179,6 +201,8 @@ If I continued the project, I could add password reset, email verification, logi
 | `logs.txt` | يخزن الإيميل والتاريخ لكل Login ناجح. |
 | `style.css` | فيه التصميم والـResponsive layout. |
 
+---
+
 ### استخدمت كلاس `User` ليه؟
 
 استخدمت كلاس بسيط لأن العمليات الخاصة بالمستخدم مرتبطة ببعضها. الكلاس عنده ثلاث وظائف أساسية:
@@ -188,6 +212,8 @@ If I continued the project, I could add password reset, email verification, logi
 - `login()` يجيب المستخدم ويفحص الباسورد باستخدام `password_verify()`.
 
 صفحات الـPHP مسؤولة عن الـForms والـHTML، والكلاس مسؤول عن عمليات المستخدم في الداتابيز. الهيكل بسيط، لكنه يوضح فكرة OOP بشكل حقيقي.
+
+---
 
 ### الداتابيز وPDO
 
@@ -210,6 +236,8 @@ const DB_PASS = 'my_mysql_password';
 
 باسورد phpMyAdmin وباسورد المشروع لازم يكونوا نفس باسورد MySQL الحقيقي.
 
+---
+
 ### إضافات أمان بسيطة
 
 أضفت بعض الحاجات بجانب المطلوب الأساسي:
@@ -225,6 +253,8 @@ const DB_PASS = 'my_mysql_password';
 
 الـCookie تحفظ الإيميل فقط، ولا تعتبر دليلًا أن المستخدم سجل دخوله. الـSession هي التي تحمي الـDashboard.
 
+---
+
 ### أشغل المشروع إزاي على XAMPP؟
 
 1. انسخ مجلد `php-user-system` داخل `C:\xampp\htdocs`.
@@ -236,6 +266,8 @@ const DB_PASS = 'my_mysql_password';
 7. افتح `http://localhost/php-user-system/`.
 
 لو `root` عليه Password، أستخدم نفس الباسورد في MySQL/phpMyAdmin وفي `database.php`. لو المشروع مش قادر يتصل، أول حاجات أراجعها هي إن MySQL شغال، وإن الداتابيز اتعملها Import، وإن `DB_PASS` صحيحة.
+
+---
 
 ### الحاجات اللي اختبرتها
 
@@ -250,8 +282,8 @@ const DB_PASS = 'my_mysql_password';
 - عمل Logout ومحاولة فتح Dashboard مرة ثانية.
 - تجربة التصميم على شاشة صغيرة.
 
+---
+
 ### ممكن أضيف إيه بعدين؟
 
 لو كملت المشروع، ممكن أضيف Password Reset وEmail Verification وRate Limiting وUser Roles وAutomated Tests. الحاجات دي مش موجودة لأن المطلوب في التكليف الأساسي أبسط من كده.
-#   a s s i g n m e n t  
- 
