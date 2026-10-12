@@ -73,48 +73,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="auth-page">
-<main class="auth-card">
-    <!-- اسم المشروع بشكل بسيط فوق الفورم -->
-    <div class="brand-row">
-        <a class="brand" href="index.php">
-            <span class="brand-mark">N</span>
-            <span><?= e(APP_NAME) ?></span>
-        </a>
-        <span class="project-label">PHP User System</span>
+<?php $currentPage = 'login'; require __DIR__ . '/navbar.php'; ?>
+<main class="auth-main">
+    <div class="auth-layout">
+        <!-- الجزء ده يشرح وظيفة الصفحة من غير زحمة بصرية. -->
+        <section class="auth-intro">
+            <p class="section-kicker">Member access</p>
+            <h1>Keep your account in one clear place.</h1>
+            <p class="intro-copy">سجّل دخولك وشوف بيانات حسابك من Dashboard خاصة بيك. كل حاجة هنا مبنية على PHP وPDO وSession حقيقية.</p>
+
+            <div class="intro-points">
+                <div class="intro-point">
+                    <span class="point-number">01</span>
+                    <div><strong>Secure sign in</strong><small>الباسورد بتتراجع باستخدام password_verify.</small></div>
+                </div>
+                <div class="intro-point">
+                    <span class="point-number">02</span>
+                    <div><strong>Private dashboard</strong><small>الصفحة لا تفتح من غير Session صحيحة.</small></div>
+                </div>
+                <div class="intro-point">
+                    <span class="point-number">03</span>
+                    <div><strong>Simple by design</strong><small>واجهة واضحة من غير عناصر زيادة ملهاش لازمة.</small></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <div class="form-heading">
+                <p class="section-kicker">Sign in</p>
+                <h2>Welcome back.</h2>
+                <p><?= e(APP_TAGLINE) ?></p>
+            </div>
+
+            <?php if ($infoMessage !== ''): ?>
+                <p class="message success" role="status"><?= e($infoMessage) ?></p>
+            <?php endif; ?>
+
+            <?php if ($errorMessage !== ''): ?>
+                <p class="message error" role="alert"><?= e($errorMessage) ?></p>
+            <?php endif; ?>
+
+            <form method="post" action="login.php" class="auth-form">
+                <!-- بنحط token مخفية عشان نتأكد إن الطلب جاي من الفورم بتاعتنا -->
+                <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+
+                <div class="field-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<?= e($email) ?>" autocomplete="email" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="primary-button">
+                    <span>Login</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+            </form>
+
+            <div class="form-meta"><span>PDO connection</span><span>Protected session</span></div>
+            <p class="form-footer">Don't have an account? <a href="register.php">Create one</a></p>
+        </section>
     </div>
-
-    <div class="auth-heading">
-        <p class="eyebrow">Welcome back</p>
-        <h1>Login to your account</h1>
-        <p><?= e(APP_TAGLINE) ?></p>
-    </div>
-
-    <?php if ($infoMessage !== ''): ?>
-        <p class="message success" role="status"><?= e($infoMessage) ?></p>
-    <?php endif; ?>
-
-    <?php if ($errorMessage !== ''): ?>
-        <p class="message error" role="alert"><?= e($errorMessage) ?></p>
-    <?php endif; ?>
-
-    <form method="post" action="login.php" class="auth-form">
-        <!-- بنحط token مخفية عشان نتأكد إن الطلب جاي من الفورم بتاعتنا -->
-        <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
-
-        <div class="field-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?= e($email) ?>" autocomplete="email" required>
-        </div>
-
-        <div class="field-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" autocomplete="current-password" required>
-        </div>
-
-        <button type="submit" class="primary-button">Login</button>
-    </form>
-
-    <p class="form-footer">Don't have an account? <a href="register.php">Create one</a></p>
 </main>
 </body>
 </html>

@@ -82,49 +82,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="auth-page">
-<main class="auth-card">
-    <!-- نفس شكل Login عشان الصفحات تبقى متناسقة -->
-    <div class="brand-row">
-        <a class="brand" href="index.php">
-            <span class="brand-mark">N</span>
-            <span><?= e(APP_NAME) ?></span>
-        </a>
-        <span class="project-label">PHP User System</span>
+<?php $currentPage = 'register'; require __DIR__ . '/navbar.php'; ?>
+<main class="auth-main">
+    <div class="auth-layout">
+        <!-- نفس النظام لكن بنشرح للمستخدم خطوات إنشاء الحساب ببساطة. -->
+        <section class="auth-intro">
+            <p class="section-kicker">New member</p>
+            <h1>Set up your access in a minute.</h1>
+            <p class="intro-copy">اعمل حساب جديد، وبعدها هتدخل للـDashboard تلقائيًا من غير ما تعمل Login مرة ثانية.</p>
+
+            <div class="intro-points">
+                <div class="intro-point">
+                    <span class="point-number">01</span>
+                    <div><strong>Create your profile</strong><small>الاسم والإيميل والباسورد بيتراجعوا قبل الحفظ.</small></div>
+                </div>
+                <div class="intro-point">
+                    <span class="point-number">02</span>
+                    <div><strong>Password stays protected</strong><small>الباسورد بتتخزن Hash مش كنص عادي.</small></div>
+                </div>
+                <div class="intro-point">
+                    <span class="point-number">03</span>
+                    <div><strong>Go straight to work</strong><small>بعد التسجيل يتم إنشاء Session تلقائيًا.</small></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <div class="form-heading">
+                <p class="section-kicker">Create account</p>
+                <h2>Start with your details.</h2>
+                <p>Make an account and go straight to the dashboard.</p>
+            </div>
+
+            <?php if ($errorMessage !== ''): ?>
+                <p class="message error" role="alert"><?= e($errorMessage) ?></p>
+            <?php endif; ?>
+
+            <form method="post" action="register.php" class="auth-form">
+                <!-- token مخفية للحماية من إرسال فورم من مكان خارجي -->
+                <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+
+                <div class="field-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" value="<?= e($name) ?>" maxlength="100" autocomplete="name" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<?= e($email) ?>" autocomplete="email" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="password">Password <span class="field-hint">8 characters minimum</span></label>
+                    <input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required>
+                </div>
+
+                <button type="submit" class="primary-button">
+                    <span>Create account</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+            </form>
+
+            <div class="form-meta"><span>PDO connection</span><span>Secure password hash</span></div>
+            <p class="form-footer">Already have an account? <a href="login.php">Login</a></p>
+        </section>
     </div>
-
-    <div class="auth-heading">
-        <p class="eyebrow">Create account</p>
-        <h1>Start with your details</h1>
-        <p>Make an account and go straight to the dashboard.</p>
-    </div>
-
-    <?php if ($errorMessage !== ''): ?>
-        <p class="message error" role="alert"><?= e($errorMessage) ?></p>
-    <?php endif; ?>
-
-    <form method="post" action="register.php" class="auth-form">
-        <!-- token مخفية للحماية من إرسال فورم من مكان خارجي -->
-        <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
-
-        <div class="field-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?= e($name) ?>" maxlength="100" autocomplete="name" required>
-        </div>
-
-        <div class="field-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?= e($email) ?>" autocomplete="email" required>
-        </div>
-
-        <div class="field-group">
-            <label for="password">Password <span class="field-hint">8 characters minimum</span></label>
-            <input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required>
-        </div>
-
-        <button type="submit" class="primary-button">Create account</button>
-    </form>
-
-    <p class="form-footer">Already have an account? <a href="login.php">Login</a></p>
 </main>
 </body>
 </html>

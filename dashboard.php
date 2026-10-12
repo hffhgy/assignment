@@ -27,59 +27,83 @@ $registeredMessage = isset($_GET['registered'])
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-page">
-<div class="dashboard-shell">
-    <header class="dashboard-header">
-        <!-- اسم المشروع في أعلى الصفحة -->
-        <a class="brand" href="dashboard.php">
-            <span class="brand-mark">N</span>
-            <span><?= e(APP_NAME) ?></span>
-        </a>
+<?php $currentPage = 'dashboard'; require __DIR__ . '/navbar.php'; ?>
+<main class="dashboard-main">
+    <div class="dashboard-breadcrumb"><span>Workspace</span><b>/</b><strong>Dashboard</strong></div>
 
-        <div class="header-account">
-            <span class="mini-avatar"><?= e(initials($displayName)) ?></span>
-            <span class="header-name"><?= e($displayName) ?></span>
-            <a class="logout-button" href="logout.php">Logout</a>
+    <?php if ($registeredMessage !== ''): ?>
+        <!-- الرسالة دي بتظهر بعد التسجيل الجديد والدخول التلقائي. -->
+        <p class="message success" role="status"><?= e($registeredMessage) ?></p>
+    <?php endif; ?>
+
+    <section class="dashboard-intro">
+        <div>
+            <p class="section-kicker">Account overview</p>
+            <h1>Good to see you, <?= e(firstName($displayName)) ?>.</h1>
+            <p>دي مساحتك الخاصة. بيانات الصفحة جاية من الـSession بعد تسجيل الدخول.</p>
         </div>
-    </header>
+        <div class="session-status"><span class="status-dot"></span><span>Active session</span></div>
+    </section>
 
-    <main class="dashboard-content">
-        <?php if ($registeredMessage !== ''): ?>
-            <!-- الرسالة دي بتظهر مرة واحدة بعد إنشاء حساب جديد والدخول تلقائيًا -->
-            <p class="message success" role="status"><?= e($registeredMessage) ?></p>
-        <?php endif; ?>
+    <div class="dashboard-grid">
+        <!-- الكارت الرئيسي لبيانات المستخدم. -->
+        <section class="panel profile-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-kicker">Account profile</p>
+                    <h2>Your details</h2>
+                </div>
+                <span class="status-badge">Verified</span>
+            </div>
 
-        <section class="dashboard-title">
-            <p class="eyebrow">Dashboard</p>
-            <h1>Hello, <?= e(firstName($displayName)) ?>.</h1>
-            <p>Everything is working. This is your private page.</p>
-        </section>
-
-        <!-- الكارت الرئيسي اللي فيه بيانات المستخدم -->
-        <section class="profile-card">
-            <div class="profile-heading">
+            <div class="profile-summary">
                 <div class="profile-avatar"><?= e(initials($displayName)) ?></div>
                 <div>
-                    <p class="card-label">Logged-in user</p>
-                    <h2><?= e($displayName) ?></h2>
-                    <p class="muted-copy">Your data is coming from the session.</p>
+                    <h3><?= e($displayName) ?></h3>
+                    <p><?= e($displayEmail) ?></p>
                 </div>
             </div>
 
-            <div class="profile-details">
-                <div class="detail-row">
-                    <span>Name</span>
-                    <strong><?= e($displayName) ?></strong>
-                </div>
-                <div class="detail-row">
-                    <span>Email</span>
-                    <strong><?= e($displayEmail) ?></strong>
-                </div>
-            </div>
+            <dl class="details-list">
+                <div><dt>Full name</dt><dd><?= e($displayName) ?></dd></div>
+                <div><dt>Email address</dt><dd><?= e($displayEmail) ?></dd></div>
+                <div><dt>Access level</dt><dd>Standard member</dd></div>
+                <div><dt>Session state</dt><dd>Authenticated</dd></div>
+            </dl>
         </section>
 
-        <!-- ملاحظة صغيرة بدل ما نحط كروت كثيرة ملهاش لازمة -->
-        <p class="dashboard-note"><strong>Note:</strong> Every successful login is saved in <code>logs.txt</code>.</p>
-    </main>
-</div>
+        <!-- الجزء ده بيوضح الوظائف الحقيقية الموجودة في المشروع. -->
+        <aside class="panel system-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-kicker">System status</p>
+                    <h2>Everything is ready</h2>
+                </div>
+            </div>
+
+            <ul class="status-list">
+                <li><span class="status-number">01</span><div><strong>Session protected</strong><small>Dashboard access is checked.</small></div><b>OK</b></li>
+                <li><span class="status-number">02</span><div><strong>PDO connected</strong><small>User data comes from MySQL.</small></div><b>OK</b></li>
+                <li><span class="status-number">03</span><div><strong>Login logging</strong><small>Successful logins go to logs.txt.</small></div><b>ON</b></li>
+            </ul>
+        </aside>
+    </div>
+
+    <section class="panel project-panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Project components</p>
+                <h2>What this system demonstrates</h2>
+            </div>
+            <span class="panel-note">PHP fundamentals</span>
+        </div>
+
+        <div class="component-list">
+            <div><span class="component-code">PDO</span><p><strong>Database access</strong><small>Prepared statements for user operations.</small></p></div>
+            <div><span class="component-code">OOP</span><p><strong>User class</strong><small>Registration and login logic in User.php.</small></p></div>
+            <div><span class="component-code">FILE</span><p><strong>Login history</strong><small>Email and time are appended to logs.txt.</small></p></div>
+        </div>
+    </section>
+</main>
 </body>
 </html>
